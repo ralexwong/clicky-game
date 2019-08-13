@@ -3,12 +3,16 @@ import './App.css';
 import Navbar from './navbar.js';
 import Header from './header.js';
 import Footer from './footer.js';
+import images from './images.json';
+import CharacterDiv from './chracterDiv';
 
 class Main extends Component {
+
     state = {
         clickedImages: [],
         score: 0,
-        highScore: 0
+        highScore: 0,
+        images,
 
     };
 
@@ -18,54 +22,30 @@ class Main extends Component {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
+        return array;
+    };
+
+    shuffleResult = () => {
+        let shuffledImages = this.shuffleArray(images);
+        this.setState({ images: shuffledImages })
     }
 
     // takes input of the clicked image ID and compare it to the array of already clicked images
-    checkImage = currentImage => {
+    checkImage = id => {
 
         // if it has been clicked then the states reset and the game images reshuffle
-        for (let i = 0; i < this.state.clickedImages.length; i++) {
-            if (currentImage === this.state.clickedImages[i]) {
-                this.setState({ clickedImages: []});
-                this.setState({ score: 0 });
-                this.loadImages();
-            } else {
-                // add clickedimage to array
-                this.setState({
-                    clickedImages: this.state.clickedImages.concat(currentImage)
-                  })
-                // else it hasn't been clicked before then the score++
-                this.setState({ score: this.state.score++ })
-                // checks if the score is the new highscore
+            if (this.state.clickedImages.indexOf(id) === -1) {
+                this.setState({ score: this.state.score + 1})
+                this.setState({ clickedImages: this.state.clickedImages.concat(id) });
                 if (this.state.score > this.state.highScore) {
-                    this.state.highScore = this.state.score;
-                    document.getElementById("highScore").innerHTML = this.state.highScore;
+                    this.setState({ highscore: this.state.highscore + 1});
                 }
-                document.getElementById("score").innerHTML = this.state.score;
-                this.loadImages();
+                this.shuffleResult();
+            } else {
+                this.setState({ score: 0 });
+                this.setState({ clickedImages: [] });
+                this.shuffleResult()
             }
-        }
-    }
-
-    // reload the images
-    loadImages = () => {
-        // clear previous order
-        document.getElementById("mainContainer").innerHTML = "";
-        let array = [1,2,3,4,5,6,7,8,9];
-        this.shuffleArray(array);
-        // attribute and append to container
-        let bigDiv = document.createElement("DIV");
-        for (let i = 0; i < array.length; i++) {
-            let div = document.createElement("DIV");
-            div.setAttribute("className", `clickyImages`);
-            div.setAttribute("id", `image${array[i]}`);
-            div.setAttribute("onclick", `checkImage(${div.id})`); // <-- not sure if this is how you pass through a function
-            div.setAttribute("style", `background-image: url(../public/images/${array[i]}.jpg)`);
-            bigDiv.appendChild(div);
-        }
-        console.log(bigDiv);
-        document.getElementById("mainContainer").appendChild(bigDiv);
-        return;
     }
 
     render() {
@@ -77,7 +57,16 @@ class Main extends Component {
                 />
                 <Header />
                 <div id="mainContainer" className="container">
-                    {this.loadImages()}
+                    <div className="row">
+                        {this.state.images.map(characters => (
+                            <CharacterDiv 
+                                key={characters.id}
+                                image={characters.image}
+                                id={characters.id}
+                                onClick={this.checkImage}
+                            />
+                        ))}
+                    </div>
                 </div>
                 <Footer />
             </div>

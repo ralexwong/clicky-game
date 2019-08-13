@@ -4,9 +4,9 @@ function Navbar (props) {
     return (
         <nav className="navbar">
             <ul>
-                <li><a >Clicky Game</a></li>
+                <li>Clicky Game</li>
                 <li>Click an image to begin!</li>
-                <li>Score: <span id="score">0</span> | Top Score: <span id="topScore">0</span></li>
+                <li>Score: <span id="score">{props.score}</span> | Top Score: <span id="topScore">{props.highScore}</span></li>
             </ul>
         </nav> 
     )
