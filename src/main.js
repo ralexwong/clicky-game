@@ -28,24 +28,28 @@ class Main extends Component {
     shuffleResult = () => {
         let shuffledImages = this.shuffleArray(images);
         this.setState({ images: shuffledImages })
+        
     }
 
     // takes input of the clicked image ID and compare it to the array of already clicked images
     checkImage = id => {
 
         // if it has been clicked then the states reset and the game images reshuffle
-            if (this.state.clickedImages.indexOf(id) === -1) {
-                this.setState({ score: this.state.score + 1})
-                this.setState({ clickedImages: this.state.clickedImages.concat(id) });
-                if (this.state.score > this.state.highScore) {
-                    this.setState({ highscore: this.state.highscore + 1});
-                }
-                this.shuffleResult();
-            } else {
-                this.setState({ score: 0 });
-                this.setState({ clickedImages: [] });
-                this.shuffleResult()
+        if (this.state.clickedImages.indexOf(id) === -1) {
+            this.setState({ score: this.state.score + 1 })
+            this.setState({ clickedImages: this.state.clickedImages.concat(id) })
+            console.log(this.state.score);
+            console.log(this.state.highScore);
+            if (this.state.score > this.state.highScore) {
+                console.log("true");
+                this.setState({ highScore: this.state.highScore + 1 });
             }
+            this.shuffleResult();
+        } else {
+            this.setState({ score: 0 });
+            this.setState({ clickedImages: [] });
+            this.shuffleResult()
+        }
     }
 
     render() {
@@ -59,7 +63,7 @@ class Main extends Component {
                 <div id="mainContainer" className="container">
                     <div className="row">
                         {this.state.images.map(characters => (
-                            <CharacterDiv 
+                            <CharacterDiv
                                 key={characters.id}
                                 image={characters.image}
                                 id={characters.id}
@@ -68,7 +72,6 @@ class Main extends Component {
                         ))}
                     </div>
                 </div>
-                <Footer />
             </div>
         );
 

@@ -1,38 +1,38 @@
 [
     {
         "id": 1,
-        "image": "../public/images/1.jpg"
+        "image": "images/1.png"
     },
     {
         "id": 2,
-        "image": "../public/images/2.jpg"
+        "image": "images/2.png"
     },
     {
         "id": 3,
-        "image": "../public/images/3.jpg"
+        "image": "images/3.png"
     },
     {
         "id": 4,
-        "image": "../public/images/4.jpg"
+        "image": "images/4.png"
     },
     {
         "id": 5,
-        "image": "../public/images/5.jpg"
+        "image": "images/5.png"
     },
     {
         "id": 6,
-        "image": "../public/images/6.jpg"
+        "image": "images/6.png"
     },
     {
         "id": 7,
-        "image": "../public/images/7.jpg"
+        "image": "images/7.png"
     },
     {
         "id": 8,
-        "image": "../public/images/8.jpg"
+        "image": "images/8.png"
     },
     {
         "id": 9,
-        "image": "../public/images/9.jpg"
+        "image": "images/9.png"
     }
 ]
